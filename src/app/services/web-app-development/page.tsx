@@ -33,7 +33,7 @@ const WebAppDevelopmentPage = () => {
           </div>
           <div>
             <Image
-              src="/Images/home/webappdevelopment.png"
+              src="/Images/Home/webappdevelopment.png"
               alt="Website & App Development"
               width={600}
               height={600}
