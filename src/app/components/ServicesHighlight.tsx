@@ -26,7 +26,7 @@ const services = [
 const ServicesHighlight = () => (
   <section className="bg-gray-50 py-16">
     <div className="container">
-      <h2 className="text-2xl md:text-3xl font-heading font-bold mb-4 text-gray-900">Modern solutions for business growth</h2>
+  <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4 text-gray-900">Modern solutions for business growth</h2>
       <p className="text-gray-600 mb-10 max-w-2xl">Discover our core services to help your business streamline processes, improve efficiency, and embrace digital transformation.</p>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         {services.map((service) => (

@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
-import { Instrument_Sans, Playfair_Display } from 'next/font/google';
+import { Poppins, Inter } from 'next/font/google';
 import "./globals.css";
 
-const instrument = Instrument_Sans({ subsets: ['latin'], variable: '--font-instrument', display: 'swap' });
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair', display: 'swap' });
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['600', '700'],
+  variable: '--font-poppins',
+  display: 'swap',
+});
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 
 export const metadata: Metadata = {
@@ -18,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${instrument.variable} ${playfair.variable} font-body antialiased bg-gray-50`}>
+      <body className={`${inter.variable} ${poppins.variable} font-body antialiased bg-gray-50`}>
         {children}
       </body>
     </html>

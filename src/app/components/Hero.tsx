@@ -10,7 +10,7 @@ const Hero = () => (
     <div className="container mx-auto flex flex-col md:flex-row items-center px-6 relative z-10">
       {/* Left Column (Text) */}
       <div className="md:w-1/2 flex flex-col items-start text-left animate-fade-in-up">
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 drop-shadow-lg">
+  <h1 className="font-heading text-4xl md:text-6xl font-extrabold leading-tight mb-4 drop-shadow-lg">
           Your partner in digital growth
         </h1>
         <p className="text-lg text-gray-300 mb-8">

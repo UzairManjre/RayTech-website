@@ -7,11 +7,11 @@ const OurMission = () => (
     <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-8 lg:gap-16 px-4">
       {/* Left: Text Content */}
       <div>
-        <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
+  <h2 className="font-heading text-3xl md:text-4xl font-semibold text-gray-900">
           Simplifying technology for your business
         </h2>
         <Link
-          href="#"
+          href="/mission"
           className="inline-block bg-green-300 hover:bg-green-400 text-gray-800 font-semibold py-3 px-6 rounded-md mt-6 transition-colors"
         >
           Our mission

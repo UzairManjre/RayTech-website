@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ['var(--font-playfair)', 'Playfair Display', 'serif'],
-        body: ['var(--font-instrument)', 'Instrument Sans', 'ui-sans-serif', 'system-ui'],
+        heading: ['var(--font-poppins)', 'Poppins', 'sans-serif'],
+        body: ['var(--font-inter)', 'Inter', 'ui-sans-serif', 'system-ui'],
       },
       colors: {
         'charcoal': '#1A1A1A',

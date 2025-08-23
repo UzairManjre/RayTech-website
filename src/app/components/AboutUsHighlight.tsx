@@ -17,7 +17,7 @@ const AboutUsHighlight = () => (
       {/* Right: Content */}
       <div className="flex-1 flex flex-col justify-center order-1 md:order-none">
         <p className="text-sm font-semibold text-green-600 uppercase mb-2">About Us</p>
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Simplifying tech for your business</h2>
+  <h2 className="font-heading text-3xl md:text-4xl font-bold text-gray-900">Simplifying tech for your business</h2>
         <p className="text-gray-600 mt-4">
           We help businesses modernize and automate with tailored digital solutions. Our mission is to make technology accessible, efficient, and easy to manage for every client.
         </p>

@@ -29,7 +29,7 @@ const ContactSection = () => (
       {/* Right: Contact Info */}
       <div className="flex flex-col justify-center">
         {/* FIX 1: Removed non-standard 'font-heading' class. 'font-bold' is sufficient. */}
-        <h2 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">Start your project today</h2>
+  <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4 text-gray-900">Start your project today</h2>
         <p className="text-gray-600 mb-8">Contact us to discuss your needs or book a free consultation.</p>
         <ul className="space-y-4">
           <li className="flex items-center gap-4">

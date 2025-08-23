@@ -16,7 +16,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ imageUrl, title, description,
       </div>
       <Image src={imageUrl} alt={title} width={500} height={300} className="w-full object-cover rounded-t-2xl" />
       <div className="p-6 relative z-10">
-        <h3 className="text-xl font-extrabold mb-2 text-gray-900 drop-shadow-lg">{title}</h3>
+  <h3 className="font-heading text-xl font-extrabold mb-2 text-gray-900 drop-shadow-lg">{title}</h3>
         <p className="text-gray-600 mb-4">{description}</p>
         <a href={href} className="text-green-600 font-semibold relative group/link">
           <span className="group-hover/link:underline group-hover/link:decoration-green-400 transition-all">Learn more</span>

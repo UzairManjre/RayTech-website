@@ -9,7 +9,7 @@ const FinalCTA = () => (
       <div className="w-full h-full bg-gradient-to-tr from-green-400/20 via-white/80 to-green-600/20 animate-gradient-x blur-2xl opacity-80" />
     </div>
     <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8 px-4 relative z-10">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 text-center md:text-left mb-4 md:mb-0 drop-shadow-lg animate-fade-in-up">
+  <h2 className="font-heading text-3xl md:text-4xl font-extrabold text-gray-900 text-center md:text-left mb-4 md:mb-0 drop-shadow-lg animate-fade-in-up">
         Ready to modernize your business?
       </h2>
       <div className="flex gap-4 animate-fade-in">

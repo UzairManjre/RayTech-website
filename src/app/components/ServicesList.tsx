@@ -6,7 +6,7 @@ const ServicesList = () => {
     <section id="services-list" className="bg-gray-50 py-20">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-gray-900">
             Modern solutions for business growth
           </h2>
         </div>
