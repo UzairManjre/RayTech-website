@@ -25,26 +25,79 @@ const Footer = () => {
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-2 tracking-tight">Ready to Build Something Great?</h2>
           <p className="text-gray-400 mb-8 text-lg">Leave your details and we'll get in touch to schedule a free consultation.</p>
-          <form className="flex flex-col md:flex-row justify-center items-center gap-4 max-w-2xl mx-auto bg-gray-800/70 rounded-2xl shadow-lg p-4 md:p-2 backdrop-blur-md">
-            <input
-              type="text"
-              placeholder="Your Name"
-              className="w-full md:w-1/3 bg-gray-800 border border-gray-700 text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
-              required
-            />
-            <input
-              type="email"
-              placeholder="Your Email"
-              className="w-full md:w-1/3 bg-gray-800 border border-gray-700 text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
-              required
-            />
-            <button
-              type="submit"
-              className="w-full md:w-auto bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-all"
-            >
-              Send Inquiry
-            </button>
-          </form>
+          {/* Footer Inquiry Form with submission logic */}
+          {(() => {
+            const React = require('react');
+            type FormState = { name: string; email: string };
+            const [form, setForm] = React.useState({ name: '', email: '' });
+            const [loading, setLoading] = React.useState(false);
+            const [success, setSuccess] = React.useState(null);
+            const [error, setError] = React.useState(null);
+
+            const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+              const { name, value } = e.target;
+              setForm((prev: FormState) => ({ ...prev, [name]: value }));
+            };
+
+            const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+              e.preventDefault();
+              setLoading(true);
+              setSuccess(null);
+              setError(null);
+              try {
+                const res = await fetch('/api/send-email', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ name: form.name, email: form.email, message: 'Footer inquiry' }),
+                });
+                const data = await res.json();
+                if (res.ok && data.success) {
+                  setSuccess('Thank you! We will contact you soon.');
+                  setForm({ name: '', email: '' });
+                } else {
+                  setError(data.error || 'Something went wrong. Please try again.');
+                }
+              } catch (err) {
+                setError('Network error. Please try again.');
+              } finally {
+                setLoading(false);
+              }
+            };
+
+            return (
+              <form className="flex flex-col md:flex-row justify-center items-center gap-4 max-w-2xl mx-auto bg-gray-800/70 rounded-2xl shadow-lg p-4 md:p-2 backdrop-blur-md" onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  className="w-full md:w-1/3 bg-gray-800 border border-gray-700 text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
+                  required
+                  value={form.name}
+                  onChange={handleChange}
+                  disabled={loading}
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  className="w-full md:w-1/3 bg-gray-800 border border-gray-700 text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
+                  required
+                  value={form.email}
+                  onChange={handleChange}
+                  disabled={loading}
+                />
+                <button
+                  type="submit"
+                  className="w-full md:w-auto bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                  disabled={loading}
+                >
+                  {loading ? 'Sending...' : 'Send Inquiry'}
+                </button>
+                {success && <div className="w-full text-green-400 text-center font-semibold mt-2">{success}</div>}
+                {error && <div className="w-full text-red-400 text-center font-semibold mt-2">{error}</div>}
+              </form>
+            );
+          })()}
         </div>
 
         <hr className="border-gray-700 my-10" />
