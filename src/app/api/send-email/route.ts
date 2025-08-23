@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     }
     const data = await resend.emails.send({
       to: 'contact@raytechnica.work',
-      from: 'Website Inquiry <onboarding@resend.dev>',
+      from: 'RayTechnica <contact@raytechnica.work>',
       subject: `New Message from ${name}`,
       replyTo: email,
       react: EmailTemplate({ name, email, message }),
