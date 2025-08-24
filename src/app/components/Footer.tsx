@@ -106,8 +106,8 @@ const Footer = () => {
         {/* Part 2: Links Section */}
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start text-center md:text-left gap-8">
           <div className="mb-6 md:mb-0 flex flex-col items-center md:items-start">
-            <h3 className="text-2xl font-extrabold tracking-tight mb-1">RayTech</h3>
-            <p className="text-gray-400 text-sm mb-2">Mumbai, Maharashtra</p>
+            <h3 className="text-2xl font-extrabold tracking-tight mb-1">RayTechnica</h3>
+            <p className="text-gray-400 text-sm mb-2">Vadodara, Gujarat</p>
             <div className="flex space-x-4 mt-2">
               {socialLinks.map((link) => (
                 <a
@@ -132,13 +132,13 @@ const Footer = () => {
             </div>
             <div className="flex flex-col space-y-2 mt-6 md:mt-0">
               <span className="uppercase text-gray-400 text-xs font-semibold mb-2 tracking-widest">Contact</span>
-              <span className="text-gray-300">hello@nexusdigital.in</span>
+              <span className="text-gray-300">contact@raytechnica.work</span>
               <span className="text-gray-400">Mumbai, India</span>
             </div>
           </div>
         </div>
         <div className="mt-12 text-center text-gray-500 text-xs">
-          &copy; {new Date().getFullYear()} RayTech. All rights reserved.
+          &copy; {new Date().getFullYear()} RayTechnica. All rights reserved.
         </div>
       </div>
     </footer>
