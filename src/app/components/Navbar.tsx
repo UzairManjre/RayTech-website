@@ -14,7 +14,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center px-6 relative z-10">
         {/* Logo */}
         <Link href="/" className="text-xl font-extrabold tracking-tight hover:text-green-400 transition-colors">
-          RayTech
+          RayTechnica
         </Link>
 
         {/* Desktop Navigation Links */}
