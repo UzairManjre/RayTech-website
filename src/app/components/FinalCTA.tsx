@@ -1,7 +1,7 @@
 // components/FinalCTA.tsx
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, type FC } from 'react'; // <-- FIX IS HERE
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
