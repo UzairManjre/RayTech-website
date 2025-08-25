@@ -1,56 +1,127 @@
+// components/Hero.tsx
+"use client";
+
 import Image from 'next/image';
+import { motion, type Variants } from 'framer-motion';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import type { FC } from 'react';
+import Link from 'next/link'; // Make sure Link is imported
 
+// Define props for the FeatureItem component
+interface FeatureItemProps {
+  text: string;
+}
 
-const Hero = () => (
-  <section className="relative bg-black text-white py-20 overflow-hidden">
-    {/* Animated Gradient Overlay */}
-    <div className="absolute inset-0 z-0 pointer-events-none">
-      <div className="w-full h-full bg-gradient-to-tr from-green-400/20 via-gray-900/80 to-green-600/20 animate-gradient-x blur-2xl opacity-80" />
-    </div>
-    <div className="container mx-auto flex flex-col md:flex-row items-center px-6 relative z-10">
-      {/* Left Column (Text) */}
-      <div className="md:w-1/2 flex flex-col items-start text-left animate-fade-in-up">
-  <h1 className="font-heading text-4xl md:text-6xl font-extrabold leading-tight mb-4 drop-shadow-lg">
-          Your partner in digital growth
-        </h1>
-        <p className="text-lg text-gray-300 mb-8">
-          Modernize and automate your business with tailored technology solutions. Streamline operations, boost efficiency, and stay ahead.
-        </p>
-        <ul className="list-none space-y-2 mb-8">
-          <li className="flex items-center">
-            <svg className="w-5 h-5 text-green-400 mr-2 animate-bounce" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-            </svg>
-            Website & app development
-          </li>
-          <li className="flex items-center">
-            <svg className="w-5 h-5 text-green-400 mr-2 animate-bounce" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-            </svg>
-            Custom business software
-          </li>
-          <li className="flex items-center">
-            <svg className="w-5 h-5 text-green-400 mr-2 animate-bounce" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
-            </svg>
-            E-commerce solutions
-          </li>
-        </ul>
-        <div className="flex space-x-4">
-          <a href="/contact" className="bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-bold py-3 px-6 rounded shadow-lg transition-all duration-300 animate-fade-in-up">
-            Book free consultation
-          </a>
-          <a href="/about" className="bg-white/10 border border-white/30 hover:bg-white hover:text-gray-900 text-white font-bold py-3 px-6 rounded shadow-lg transition-all duration-300 animate-fade-in-up backdrop-blur-md">
-            Learn more
-          </a>
-        </div>
-      </div>
-      {/* Right Column (Image) */}
-      <div className="md:w-1/2 mt-12 md:mt-0 flex justify-center animate-fade-in">
-        <Image src="/Images/Home/Hero_img.avif" alt="Digital growth" width={600} height={400} className="rounded-2xl shadow-2xl backdrop-blur-lg" />
-      </div>
-    </div>
-  </section>
+// A small component for feature list items to keep the code clean
+const FeatureItem: FC<FeatureItemProps> = ({ text }) => (
+  <div className="flex items-center">
+    <CheckCircle2 className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+    <span className="text-slate-300">{text}</span>
+  </div>
 );
+
+const Hero: FC = () => {
+  // Animation variants for Framer Motion, typed with the `Variants` type
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  return (
+    <section className="relative w-full min-h-screen bg-gray-900 text-white flex items-center justify-center overflow-hidden">
+      {/* Background Grid & Gradient */}
+      <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 bg-transparent"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
+            backgroundSize: '40px 40px',
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-green-900/50 via-gray-900 to-gray-900 animate-gradient-xy blur-3xl" />
+      </div>
+
+      {/* Content */}
+      <motion.div
+        className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-12 px-6 relative z-10"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        {/* Left Column (Text) */}
+        <div className="flex flex-col items-start text-left">
+          <motion.h1
+            className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400"
+            variants={itemVariants}
+          >
+            Your Partner in <br /> Digital Growth
+          </motion.h1>
+          <motion.p className="text-lg text-slate-400 mb-8 max-w-lg" variants={itemVariants}>
+            Modernize and automate your business with tailored technology solutions. Streamline operations, boost efficiency, and stay ahead.
+          </motion.p>
+
+          <motion.div className="space-y-3 mb-10" variants={itemVariants}>
+            <FeatureItem text="Website & app development" />
+            <FeatureItem text="Custom business software" />
+            <FeatureItem text="E-commerce solutions" />
+          </motion.div>
+
+          {/* Action Buttons -- THIS SECTION IS FIXED */}
+          <motion.div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4" variants={itemVariants}>
+            <Link
+              href="/contact"
+              className="group relative inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 duration-300"
+            >
+              <span className="absolute top-0 left-0 w-full h-full bg-white opacity-0 transition-opacity duration-500 group-hover:opacity-20 animate-shimmer" />
+              Book Free Consultation
+            </Link>
+            <Link
+              href="/about"
+              className="group inline-flex items-center justify-center px-8 py-3 bg-white/10 border border-white/20 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:bg-white/20 backdrop-blur-sm"
+            >
+              Learn More <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Right Column (Image) */}
+        <motion.div className="flex justify-center" variants={itemVariants}>
+          <motion.div
+            className="relative w-full max-w-[600px] aspect-[4/3] p-2 rounded-2xl bg-white/10 border border-white/20 shadow-2xl"
+            whileHover={{ scale: 1.05, rotate: 2 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <Image
+              src="/Images/Home/Hero_img.avif"
+              alt="Digital growth illustration"
+              fill
+              style={{ objectFit: 'cover' }}
+              className="rounded-lg"
+              priority
+            />
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+};
 
 export default Hero;

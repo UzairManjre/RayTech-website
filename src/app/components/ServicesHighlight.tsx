@@ -1,46 +1,102 @@
-import Image from 'next/image';
+// components/ServicesHighlight.tsx
+"use client";
 
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import type { FC } from 'react';
+
+// Service data array remains the same
 const services = [
   {
-    title: 'Website & app development',
+    title: 'Website & App Development',
     description: 'Modern, responsive sites and apps to boost your online presence.',
-    image: '/Images/Home/app and web dev ppl.avif', // group of people working on app/web
+    image: '/Images/Home/app and web dev ppl.avif',
   },
   {
-    title: 'Custom software solutions',
+    title: 'Custom Software Solutions',
     description: 'Tailored business software for productivity and growth.',
-    image: '/Images/Home/crm soft.avif', // CRM software UI
+    image: '/Images/Home/crm soft.avif',
   },
   {
-    title: 'E-commerce platforms',
+    title: 'E-commerce Platforms',
     description: 'Robust, scalable online stores for your business.',
-    image: '/Images/Home/ecom photo.avif', // e-commerce photo
-  },
-  {
-    title: 'Business automation tools',
-    description: 'Automate workflows and save time with smart tools.',
-    image: '/Images/Home/monitor char.avif', // monitor with code/automation
+    image: '/Images/Home/ecom photo.avif',
   },
 ];
 
-const ServicesHighlight = () => (
-  <section className="bg-gray-50 py-16">
-    <div className="container">
-  <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4 text-gray-900">Modern solutions for business growth</h2>
-      <p className="text-gray-600 mb-10 max-w-2xl">Discover our core services to help your business streamline processes, improve efficiency, and embrace digital transformation.</p>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {services.map((service) => (
-          <div key={service.title} className="bg-white rounded-xl shadow p-6 flex flex-col items-center text-center">
-            <div className="mb-4 w-full h-40 relative">
-              <Image src={service.image} alt={service.title} fill className="object-cover rounded-lg" />
-            </div>
-            <h3 className="font-heading text-lg font-bold mb-2 text-gray-900">{service.title}</h3>
-            <p className="text-gray-600 mb-4">{service.description}</p>
-          </div>
-        ))}
+const ServicesHighlight: FC = () => {
+  return (
+    <section className="bg-black text-white py-20 md:py-24">
+      <div className="container mx-auto px-6">
+        <div className="mx-auto max-w-3xl text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+            Modern Solutions for Business Growth
+          </h2>
+          <p className="text-lg text-slate-400">
+            Discover our core services designed to streamline processes, improve efficiency, and embrace digital transformation.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service) => (
+            <AuroraCard
+              key={service.title}
+              title={service.title}
+              description={service.description}
+              image={service.image}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
+
+// --- Reusable Aurora Card Component ---
+
+interface AuroraCardProps {
+  title: string;
+  description: string;
+  image: string;
+}
+
+const AuroraCard: FC<AuroraCardProps> = ({ title, description, image }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    cardRef.current.style.setProperty("--mouse-x", `${x}px`);
+    cardRef.current.style.setProperty("--mouse-y", `${y}px`);
+  };
+
+  return (
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      whileHover={{ y: -4 }}
+      className="group relative w-full rounded-xl bg-slate-900/80 p-6 shadow-2xl border border-slate-700 overflow-hidden"
+    >
+      {/* Aurora Effect */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 [background:radial-gradient(300px_circle_at_var(--mouse-x)_var(--mouse-y),rgba(56,189,248,0.2),transparent_40%)]" />
+      
+      {/* Content */}
+      <div className="relative z-10 flex flex-col h-full">
+        <div className="relative mb-4 w-full h-40">
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover rounded-lg border border-slate-600"
+          />
+        </div>
+        <h3 className="font-bold text-lg text-white mb-2">{title}</h3>
+        <p className="text-slate-400 text-sm">{description}</p>
+      </div>
+    </motion.div>
+  );
+};
 
 export default ServicesHighlight;

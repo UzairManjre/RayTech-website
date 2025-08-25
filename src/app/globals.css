@@ -45,3 +45,15 @@ body {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
+
+@layer utilities {
+  @keyframes scroll {
+    to {
+      transform: translate(calc(-50% - 0.5rem)); /* Adjust gap if needed */
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+  }
+}
