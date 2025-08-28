@@ -30,7 +30,7 @@ const ServicesHighlight: FC = () => {
     <section className="bg-black text-white py-20 md:py-24">
       <div className="container mx-auto px-6">
         <div className="mx-auto max-w-3xl text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
             Modern Solutions for Business Growth
           </h2>
           <p className="text-lg text-slate-400">

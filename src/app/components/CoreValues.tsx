@@ -49,7 +49,7 @@ const CoreValues: FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
             The Principles That Guide Us
           </h2>
           <p className="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">

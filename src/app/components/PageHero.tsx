@@ -106,7 +106,7 @@ const PageHero: FC<PageHeroProps> = ({ title }: PageHeroProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-         <h1 className="font-display text-[clamp(2.5rem,1.5rem+4vw,4.5rem)] font-bold tracking-tighter mb-12 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+         <h1 className="font-display text-[clamp(2.5rem,1.5rem+4vw,4.5rem)] font-bold tracking-tighter mb-12 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 font-display">
   {title || "We Engineer Digital Ecosystems."}
 </h1>
 

@@ -26,7 +26,7 @@ const AboutUsHighlight: FC = () => {
           <motion.div style={{ y: y1 }} className="lg:col-span-6 z-10">
             <LayoutCard>
               <p className="text-sm font-semibold text-green-400 uppercase mb-2 tracking-widest">About Us</p>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+              <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
                 Simplifying Tech for Your Business
               </h2>
               <p className="text-slate-400 mt-4 text-lg">

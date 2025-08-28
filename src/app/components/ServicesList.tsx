@@ -49,7 +49,7 @@ const ServicesList: FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="font-display text-[clamp(2rem,1.5rem+2vw,3rem)] font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+          <h2 className="font-display text-[clamp(2rem,1.5rem+2vw,3rem)] font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 font-display">
             A Suite of Digital Solutions
           </h2>
           <p className="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">

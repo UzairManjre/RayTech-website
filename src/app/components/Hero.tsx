@@ -4,7 +4,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, cubicBezier } from 'framer-motion';
 import { ArrowRight, Code, ShoppingCart, Smartphone } from 'lucide-react';
 import type { FC, ReactNode } from 'react';
 
@@ -16,7 +16,7 @@ const Hero: FC = () => {
   };
   const lineVariants = {
     hidden: { y: "100%" },
-  visible: { y: "0%", transition: { duration: 0.8, ease: [0.42, 0, 0.58, 1] } },
+    visible: { y: "0%", transition: { duration: 0.8, ease: cubicBezier(0.22, 1, 0.36, 1) } },
   };
 
   return (
@@ -29,7 +29,7 @@ const Hero: FC = () => {
           variants={headingContainerVariants}
           initial="hidden"
           animate="visible"
-          className="font-display text-[clamp(2.5rem,1.5rem+5vw,5rem)] font-bold tracking-tighter"
+          className="font-display text-[clamp(2.5rem,1.5rem+5vw,5rem)] font-bold tracking-tighter font-display"
         >
           {headingLines.map((line, index) => (
             <div key={index} className="overflow-hidden">

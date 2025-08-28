@@ -23,7 +23,7 @@ const FinalCTA: FC = () => {
         viewport={{ once: true }}
         className="container relative z-10 mx-auto flex flex-col items-center text-center px-6"
       >
-        <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 max-w-3xl">
+  <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 max-w-3xl">
           Ready to Engineer Your Success?
         </h2>
         <p className="text-lg text-slate-400 max-w-xl mx-auto mb-8">
