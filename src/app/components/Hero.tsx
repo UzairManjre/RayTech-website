@@ -16,7 +16,7 @@ const Hero: FC = () => {
   };
   const lineVariants = {
     hidden: { y: "100%" },
-    visible: { y: "0%", transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+  visible: { y: "0%", transition: { duration: 0.8, ease: [0.42, 0, 0.58, 1] } },
   };
 
   return (
