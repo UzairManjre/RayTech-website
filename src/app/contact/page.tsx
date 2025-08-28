@@ -1,93 +1,179 @@
+// app/booking/page.tsx (or your booking page file)
+'use client';
+
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Calendar, Edit3, CheckCircle, AlertTriangle, Loader } from 'lucide-react';
+import type { FC, InputHTMLAttributes, SelectHTMLAttributes, TextareaHTMLAttributes } from 'react';
+
+// You can keep these components in separate files if you prefer
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import React from 'react';
 
-const BookingHero = () => (
-  <section className="bg-gray-50 py-16 md:py-24">
-    <div className="container mx-auto px-4 text-center">
-      <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Let's Build Your Future, Together.</h1>
-      <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto">
-        Book a free, no-obligation consultation with our experts. Tell us about your project, and we'll tell you how we can help.
-      </p>
-    </div>
-  </section>
-);
+const BookingPage: FC = () => {
+  // --- Form State Management ---
+  const [form, setForm] = useState({
+    fullName: '',
+    companyName: '',
+    email: '',
+    phone: '',
+    service: '',
+    details: '',
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-const BookingForm = () => (
-  <form className="bg-white rounded-xl shadow p-8 w-full max-w-lg mx-auto">
-    <div className="mb-6">
-      <label htmlFor="fullName" className="block text-sm font-semibold uppercase tracking-wider mb-2 text-gray-700">Full Name<span className="text-red-500">*</span></label>
-      <input id="fullName" name="fullName" type="text" required className="w-full bg-white border border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500" />
-    </div>
-    <div className="mb-6">
-      <label htmlFor="companyName" className="block text-sm font-semibold uppercase tracking-wider mb-2 text-gray-700">Company Name</label>
-      <input id="companyName" name="companyName" type="text" className="w-full bg-white border border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500" />
-    </div>
-    <div className="mb-6">
-      <label htmlFor="email" className="block text-sm font-semibold uppercase tracking-wider mb-2 text-gray-700">Email Address<span className="text-red-500">*</span></label>
-      <input id="email" name="email" type="email" required className="w-full bg-white border border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500" />
-    </div>
-    <div className="mb-6">
-      <label htmlFor="phone" className="block text-sm font-semibold uppercase tracking-wider mb-2 text-gray-700">Phone Number</label>
-      <input id="phone" name="phone" type="tel" className="w-full bg-white border border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500" />
-    </div>
-    <div className="mb-6">
-      <label htmlFor="service" className="block text-sm font-semibold uppercase tracking-wider mb-2 text-gray-700">Service of Interest</label>
-      <select id="service" name="service" className="w-full bg-white border border-gray-300 rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-green-500">
-        <option value="">Select a service</option>
-        <option value="web-app">Web & App Development</option>
-        <option value="custom-software">Custom Software</option>
-        <option value="ecommerce">E-commerce</option>
-        <option value="general">General Inquiry</option>
-      </select>
-    </div>
-    <div className="mb-6">
-      <label htmlFor="details" className="block text-sm font-semibold uppercase tracking-wider mb-2 text-gray-700">Project Details<span className="text-red-500">*</span></label>
-      <textarea id="details" name="details" required className="w-full bg-white border border-gray-300 rounded-md py-3 px-4 min-h-[120px] focus:outline-none focus:ring-2 focus:ring-green-500" />
-    </div>
-    <button type="submit" className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition-colors text-lg">Book Free Consultation</button>
-  </form>
-);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
 
-const BookingInfo = () => (
-  <div className="w-full max-w-lg mx-auto md:mx-0 md:ml-12">
-    <h2 className="text-2xl font-bold text-gray-900 mb-4">What to Expect</h2>
-    <ol className="list-decimal list-inside text-gray-700 mb-6 space-y-2">
-      <li>Fill out the form.</li>
-      <li>We'll email you to schedule.</li>
-      <li>We hold a 30-minute discovery call.</li>
-    </ol>
-    <div className="mb-2 flex items-center gap-2">
-      <span className="inline-block text-green-500 font-bold text-xl">✓</span>
-      <span className="text-gray-800">Completely Free</span>
-    </div>
-    <div className="mb-2 flex items-center gap-2">
-      <span className="inline-block text-green-500 font-bold text-xl">✓</span>
-      <span className="text-gray-800">Expert Advice</span>
-    </div>
-    <div className="mb-2 flex items-center gap-2">
-      <span className="inline-block text-green-500 font-bold text-xl">✓</span>
-      <span className="text-gray-800">No Obligations</span>
-    </div>
-  </div>
-);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccess(null);
+    setError(null);
+    try {
+      // Replace with your actual API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setSuccess('Consultation booked! We will be in touch shortly.');
+      setForm({ fullName: '', companyName: '', email: '', phone: '', service: '', details: '' });
+    } catch (err) {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-const BookingMain = () => (
-  <section className="bg-gray-50 py-16 md:py-24">
-    <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start px-4">
-      <BookingForm />
-      <BookingInfo />
-    </div>
-  </section>
-);
-
-export default function ContactPage() {
   return (
-    <main>
+    <main className="bg-black">
       <Navbar />
-      <BookingHero />
-      <BookingMain />
+      <section className="relative overflow-hidden">
+        {/* Aurora Background */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(22,163,74,0.1),_transparent_30%)]" />
+        </div>
+
+        <div className="relative z-10 container mx-auto px-6 py-24 md:py-32">
+          {/* Hero Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center max-w-3xl mx-auto"
+          >
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+              Let's Build Your Future, Together.
+            </h1>
+            <p className="text-lg text-slate-400">
+              Book a free, no-obligation consultation. Tell us about your project, and we'll tell you how we can help.
+            </p>
+          </motion.div>
+
+          {/* Main Content Grid */}
+          <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            {/* Left Side: Form */}
+            <motion.form
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bg-black/50 backdrop-blur-sm rounded-2xl border border-slate-800 p-8 w-full"
+              onSubmit={handleSubmit}
+            >
+              <FloatingLabelInput id="fullName" name="fullName" type="text" label="Full Name*" value={form.fullName} onChange={handleChange} required disabled={loading} />
+              <FloatingLabelInput id="companyName" name="companyName" type="text" label="Company Name" value={form.companyName} onChange={handleChange} disabled={loading} />
+              <FloatingLabelInput id="email" name="email" type="email" label="Email Address*" value={form.email} onChange={handleChange} required disabled={loading} />
+              <FloatingLabelInput id="phone" name="phone" type="tel" label="Phone Number" value={form.phone} onChange={handleChange} disabled={loading} />
+              <FloatingLabelSelect id="service" name="service" label="Service of Interest" value={form.service} onChange={handleChange} disabled={loading}>
+                <option value="">Select a service</option>
+                <option value="web-app">Web & App Development</option>
+                <option value="custom-software">Custom Software</option>
+                <option value="ecommerce">E-commerce</option>
+                <option value="general">General Inquiry</option>
+              </FloatingLabelSelect>
+              <FloatingLabelTextarea id="details" name="details" label="Project Details*" value={form.details} onChange={handleChange} required disabled={loading} />
+              
+              <AnimatePresence>
+                {success && <FormFeedback type="success" message={success} />}
+                {error && <FormFeedback type="error" message={error} />}
+              </AnimatePresence>
+
+              <button type="submit" className="w-full flex items-center justify-center bg-gradient-to-r from-green-500 to-teal-500 hover:opacity-90 text-white font-bold py-3 px-6 rounded-lg transition-opacity disabled:opacity-60 disabled:cursor-not-allowed" disabled={loading}>
+                {loading ? <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}><Loader /></motion.div> : 'Book Free Consultation'}
+              </button>
+            </motion.form>
+
+            {/* Right Side: What to Expect */}
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-white lg:mt-4"
+            >
+              <h2 className="text-3xl font-bold mb-6 text-slate-100">What to Expect</h2>
+              <div className="relative pl-8 border-l-2 border-slate-700 space-y-12">
+                <TimelineStep icon={<Edit3 />} title="Step 1: Submit the Form" description="Provide us with the details of your project or inquiry." />
+                <TimelineStep icon={<Mail />} title="Step 2: We'll Reach Out" description="Our team will email you within 24 hours to schedule a convenient time for our call." />
+                <TimelineStep icon={<Calendar />} title="Step 3: 30-Min Discovery Call" description="A free, no-obligation call to discuss your goals and how we can help you achieve them." />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
       <Footer />
     </main>
   );
-}
+};
+
+// --- Reusable Sub-Components ---
+
+const TimelineStep: FC<{ icon: React.ReactNode; title: string; description: string }> = ({ icon, title, description }) => (
+  <div className="relative">
+    <div className="absolute -left-[33px] top-1 h-8 w-8 bg-slate-800 border-2 border-slate-700 rounded-full flex items-center justify-center text-green-400">
+      {icon}
+    </div>
+    <h3 className="text-xl font-semibold text-white">{title}</h3>
+    <p className="text-slate-400 mt-1">{description}</p>
+  </div>
+);
+
+const FormFeedback: FC<{ type: 'success' | 'error'; message: string }> = ({ type, message }) => (
+  <motion.div
+    initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+    className={`flex items-center gap-2 mb-4 font-semibold p-3 rounded-md ${
+      type === 'success' ? 'text-green-400 bg-green-500/10' : 'text-red-400 bg-red-500/10'
+    }`}
+  >
+    {type === 'success' ? <CheckCircle size={18} /> : <AlertTriangle size={18} />}
+    {message}
+  </motion.div>
+);
+
+// --- Reusable Form Inputs (as seen before) ---
+
+type FloatingLabelInputProps = InputHTMLAttributes<HTMLInputElement> & { label: string };
+const FloatingLabelInput: FC<FloatingLabelInputProps> = ({ id, label, ...props }) => (
+    <div className="relative mb-8">
+      <input id={id} placeholder=" " className="peer block w-full appearance-none border-0 border-b-2 border-slate-600 bg-transparent py-2.5 px-0 text-white focus:border-green-400 focus:outline-none focus:ring-0" {...props} />
+      <label htmlFor={id} className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-slate-400 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-green-400">{label}</label>
+    </div>
+);
+type FloatingLabelTextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string };
+const FloatingLabelTextarea: FC<FloatingLabelTextareaProps> = ({ id, label, ...props }) => (
+    <div className="relative mb-8">
+      <textarea id={id} placeholder=" " rows={3} className="peer block w-full appearance-none border-0 border-b-2 border-slate-600 bg-transparent py-2.5 px-0 text-white focus:border-green-400 focus:outline-none focus:ring-0" {...props} />
+      <label htmlFor={id} className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-slate-400 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-green-400">{label}</label>
+    </div>
+);
+type FloatingLabelSelectProps = SelectHTMLAttributes<HTMLSelectElement> & { label: string };
+const FloatingLabelSelect: FC<FloatingLabelSelectProps> = ({ id, label, children, ...props }) => (
+  <div className="relative mb-8">
+      <select id={id} className="peer block w-full appearance-none border-0 border-b-2 border-slate-600 bg-transparent py-2.5 px-0 text-white focus:border-green-400 focus:outline-none focus:ring-0 [&>option]:bg-slate-900" {...props}>
+        {children}
+      </select>
+      <label htmlFor={id} className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-slate-400 duration-300 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-green-400">{label}</label>
+  </div>
+);
+
+export default BookingPage;

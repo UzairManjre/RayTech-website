@@ -2,125 +2,112 @@
 "use client";
 
 import Image from 'next/image';
-import { motion, type Variants } from 'framer-motion';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
-import type { FC } from 'react';
-import Link from 'next/link'; // Make sure Link is imported
-
-// Define props for the FeatureItem component
-interface FeatureItemProps {
-  text: string;
-}
-
-// A small component for feature list items to keep the code clean
-const FeatureItem: FC<FeatureItemProps> = ({ text }) => (
-  <div className="flex items-center">
-    <CheckCircle2 className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-    <span className="text-slate-300">{text}</span>
-  </div>
-);
+import Link from 'next/link';
+import React from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { ArrowRight, Code, ShoppingCart, Smartphone } from 'lucide-react';
+import type { FC, ReactNode } from 'react';
 
 const Hero: FC = () => {
-  // Animation variants for Framer Motion, typed with the `Variants` type
-  const containerVariants: Variants = {
+  const headingLines = ["Your Partner In", "Digital Growth."];
+  const headingContainerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.2 } },
   };
-
-  const itemVariants: Variants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
+  const lineVariants = {
+    hidden: { y: "100%" },
+    visible: { y: "0%", transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
   };
 
   return (
-    <section className="relative w-full min-h-screen bg-gray-900 text-white flex items-center justify-center overflow-hidden">
-      {/* Background Grid & Gradient */}
-      <div className="absolute inset-0 z-0">
-        <div
-          className="absolute inset-0 bg-transparent"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-green-900/50 via-gray-900 to-gray-900 animate-gradient-xy blur-3xl" />
+    <section className="relative bg-black text-white min-h-screen flex flex-col items-center justify-center overflow-hidden py-24">
+      {/* Animated Dot Pattern Background */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:24px_24px] animate-pan" />
+
+      <div className="relative z-10 container mx-auto px-6 text-center">
+        <motion.h1
+          variants={headingContainerVariants}
+          initial="hidden"
+          animate="visible"
+          className="font-display text-[clamp(2.5rem,1.5rem+5vw,5rem)] font-bold tracking-tighter"
+        >
+          {headingLines.map((line, index) => (
+            <div key={index} className="overflow-hidden">
+              <motion.div
+                variants={lineVariants}
+                className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-500 drop-shadow-lg"
+              >
+                {line}
+              </motion.div>
+            </div>
+          ))}
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
+          className="mt-4 text-lg text-slate-400 max-w-xl mx-auto"
+        >
+          We build modern technology solutions to automate, innovate, and scale your business for the digital age.
+        </motion.p>
       </div>
 
-      {/* Content */}
-      <motion.div
-        className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-12 px-6 relative z-10"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
-        {/* Left Column (Text) */}
-        <div className="flex flex-col items-start text-left">
-          <motion.h1
-            className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400"
-            variants={itemVariants}
-          >
-            Your Partner in <br /> Digital Growth
-          </motion.h1>
-          <motion.p className="text-lg text-slate-400 mb-8 max-w-lg" variants={itemVariants}>
-            Modernize and automate your business with tailored technology solutions. Streamline operations, boost efficiency, and stay ahead.
-          </motion.p>
-
-          <motion.div className="space-y-3 mb-10" variants={itemVariants}>
-            <FeatureItem text="Website & app development" />
-            <FeatureItem text="Custom business software" />
-            <FeatureItem text="E-commerce solutions" />
-          </motion.div>
-
-          {/* Action Buttons -- THIS SECTION IS FIXED */}
-          <motion.div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4" variants={itemVariants}>
-            <Link
-              href="/contact"
-              className="group relative inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-green-500 to-teal-500 text-white font-semibold rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 duration-300"
-            >
-              <span className="absolute top-0 left-0 w-full h-full bg-white opacity-0 transition-opacity duration-500 group-hover:opacity-20 animate-shimmer" />
-              Book Free Consultation
-            </Link>
-            <Link
-              href="/about"
-              className="group inline-flex items-center justify-center px-8 py-3 bg-white/10 border border-white/20 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:bg-white/20 backdrop-blur-sm"
-            >
-              Learn More <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </motion.div>
-        </div>
-
-        {/* Right Column (Image) */}
-        <motion.div className="flex justify-center" variants={itemVariants}>
-          <motion.div
-            className="relative w-full max-w-[600px] aspect-[4/3] p-2 rounded-2xl bg-white/10 border border-white/20 shadow-2xl"
-            whileHover={{ scale: 1.05, rotate: 2 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <Image
-              src="/Images/Home/Hero_img.avif"
-              alt="Digital growth illustration"
-              fill
-              style={{ objectFit: 'cover' }}
-              className="rounded-lg"
-              priority
-            />
-          </motion.div>
-        </motion.div>
-      </motion.div>
+      <BentoGrid />
     </section>
+  );
+};
+
+// --- BENTO GRID SUB-COMPONENT ---
+const BentoGrid: FC = () => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 20, stiffness: 150, mass: 0.5 };
+  const smoothMouseX = useSpring(mouseX, springConfig);
+  const smoothMouseY = useSpring(mouseY, springConfig);
+  const rotateX = useTransform(smoothMouseY, [-0.5, 0.5], ['7.5deg', '-7.5deg']);
+  const rotateY = useTransform(smoothMouseX, [-0.5, 0.5], ['-7.5deg', '7.5deg']);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - left) / width - 0.5);
+    mouseY.set((e.clientY - top) / height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  return (
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+      className="relative mt-12 grid grid-cols-2 grid-rows-2 gap-4 w-full max-w-2xl h-96"
+    >
+      <div style={{ transform: 'translateZ(-25px)', transformStyle: 'preserve-3d' }} className="absolute inset-0">
+        <BentoCard icon={<Smartphone />} title="Web & App Development" className="col-span-1 row-span-1" />
+        <BentoCard icon={<Code />} title="Custom Software" className="col-span-1 row-span-1" />
+        <BentoCard icon={<ShoppingCart />} title="E-commerce Solutions" className="col-span-1 row-span-1" />
+        <BentoCard className="col-span-1 row-span-1 p-4 flex items-center justify-center">
+          <Link href="/contact" className="text-center font-semibold text-green-400 hover:text-white transition-colors">
+            Start Your Project <ArrowRight className="inline ml-1" size={16} />
+          </Link>
+        </BentoCard>
+      </div>
+    </motion.div>
+  );
+};
+
+// --- BENTO CARD SUB-COMPONENT ---
+const BentoCard: FC<{ icon?: ReactNode; title?: string; className?: string, children?: ReactNode }> = ({ icon, title, className, children }) => {
+  return (
+    <div className={`bg-slate-900/80 border border-slate-800 rounded-xl p-6 flex flex-col justify-center items-center text-center ${className}`}>
+      {icon && <div className="text-green-400 mb-2">{icon}</div>}
+      {title && <h3 className="font-semibold text-white">{title}</h3>}
+      {children}
+    </div>
   );
 };
 

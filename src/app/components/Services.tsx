@@ -17,7 +17,6 @@ interface Service {
   href: string;
 }
 
-// Updated services array with "E-commerce" removed
 const services: Service[] = [
   {
     id: 1,
@@ -48,15 +47,14 @@ const Services: FC = () => {
             Smart Tech for Business Growth
           </h2>
           <p className="text-lg text-slate-400">
-            As you scroll, discover our core services designed to help your business streamline processes and improve efficiency.
+            Discover our core services designed to help your business streamline processes and improve efficiency.
           </p>
         </div>
 
-        {/* --- MODIFIED GRID LAYOUT --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-24 items-start">
-          {/* Left Column (Image): Now takes up 3/5 of the width */}
-          <div className="lg:col-span-3 w-full h-96 lg:h-[80vh] top-[10vh] lg:sticky flex items-center justify-center">
-            {/* --- REMOVED MAX-WIDTH --- */}
+        {/* --- RESPONSIVE GRID LAYOUT --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24 items-start">
+          {/* Left Column (Sticky Image): HIDDEN on mobile, VISIBLE on desktop */}
+          <div className="hidden lg:flex lg:col-span-3 w-full h-[80vh] top-[10vh] lg:sticky items-center justify-center">
             <div className="relative w-full h-full rounded-2xl overflow-hidden">
               <AnimatePresence mode="wait">
                 {services.map(
@@ -84,14 +82,25 @@ const Services: FC = () => {
             </div>
           </div>
 
-          {/* Right Column (Text): Now takes up 2/5 of the width */}
+          {/* Right Column (Text): Full width on mobile */}
           <div className="lg:col-span-2 w-full">
-            {services.map((service) => (
+            {services.map((service, index) => (
+              // Add margin-top to all but the first item on mobile for spacing
               <motion.div
                 key={service.id}
                 onViewportEnter={() => setActiveService(service.id)}
-                className="min-h-[60vh] flex flex-col justify-center"
+                className={`flex flex-col justify-center min-h-0 lg:min-h-[60vh] ${index > 0 ? 'mt-16 lg:mt-0' : ''}`}
               >
+                {/* Image for MOBILE ONLY */}
+                <div className="relative w-full h-64 rounded-xl overflow-hidden block lg:hidden mb-6">
+                  <Image
+                    src={service.imageUrl}
+                    alt={service.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
                 <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
                 <p className="text-slate-400 mb-6">{service.description}</p>
                 <Link

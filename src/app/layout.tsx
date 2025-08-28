@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Poppins, Inter } from 'next/font/google';
+import { Poppins, Inter, Sora } from 'next/font/google';
 import "./globals.css";
+
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -11,6 +12,11 @@ const poppins = Poppins({
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
+});
+const sora = Sora({
+  subsets: ['latin'],
+  variable: '--font-sora',
   display: 'swap',
 });
 
@@ -27,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${poppins.variable} font-body antialiased bg-gray-50`}>
+      <body className={`${inter.variable} ${poppins.variable} ${sora.variable} font-body antialiased bg-gray-50`}>
         {children}
       </body>
     </html>

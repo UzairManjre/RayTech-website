@@ -57,3 +57,69 @@ body {
     animation: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
   }
 }
+/* In your globals.css file */
+
+@layer utilities {
+  @keyframes aurora {
+    0%, 100% {
+      background-position: top center;
+    }
+    50% {
+      background-position: bottom center;
+    }
+  }
+  
+  .animate-aurora {
+    background-size: 200% 200%;
+    animation: aurora 20s ease infinite;
+  }
+}
+/* In your globals.css file */
+
+@layer utilities {
+  @keyframes meteor-effect {
+    to {
+      transform: translateX(-500px);
+    }
+  }
+  
+  .animate-meteor-effect {
+    animation: meteor-effect var(--animation-duration, 5s) linear infinite;
+  }
+
+  /* You may already have these from previous components */
+  @keyframes aurora {
+    0%, 100% { background-position: top center; }
+    50% { background-position: bottom center; }
+  }
+  .animate-aurora {
+    background-size: 200% 200%;
+    animation: aurora 20s ease infinite;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+  }
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+  }
+}
+/* In your globals.css file */
+
+@layer utilities {
+  @keyframes gradient-xy {
+    0%, 100% {
+      background-size: 400% 400%;
+      background-position: top center;
+    }
+    50% {
+      background-size: 200% 200%;
+      background-position: bottom center;
+    }
+  }
+
+  .animate-gradient-xy {
+    animation: gradient-xy 15s ease infinite;
+  }
+}

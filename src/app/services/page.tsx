@@ -12,7 +12,7 @@ export default function ServicesPage() {
   return (
     <main>
       <Navbar />
-      <PageHero title="Your partner in digital growth" />
+      <PageHero/>
   <ServicesList />
   <AboutUsHighlight />
 
