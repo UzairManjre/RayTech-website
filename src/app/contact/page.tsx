@@ -35,12 +35,24 @@ const BookingPage: FC = () => {
     setSuccess(null);
     setError(null);
     try {
-      // Replace with your actual API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setSuccess('Consultation booked! We will be in touch shortly.');
-      setForm({ fullName: '', companyName: '', email: '', phone: '', service: '', details: '' });
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.fullName,
+          email: form.email,
+          message: `Company: ${form.companyName || '-'}\nPhone: ${form.phone || '-'}\nService: ${form.service || '-'}\nDetails: ${form.details}`,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSuccess('Consultation booked! We will be in touch shortly.');
+        setForm({ fullName: '', companyName: '', email: '', phone: '', service: '', details: '' });
+      } else {
+        setError(data.error || 'Something went wrong. Please try again.');
+      }
     } catch (err) {
-      setError('Something went wrong. Please try again.');
+      setError('An error occurred. Please try again later.');
     } finally {
       setLoading(false);
     }
